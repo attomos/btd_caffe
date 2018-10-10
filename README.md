@@ -1,6 +1,14 @@
 # btd_caffe
 Block Term Decomposition for Caffe model
 
+## Setup
+```bash
+$ conda create -n caffe2 python=3.6
+$ source activate caffe2
+(caffe2) $ conda install -c caffe2 caffe2
+(caffe2) $ pip install git+https://github.com/mnick/scikit-tensor.git
+```
+
 ## Block Term Decomposition (BTD) for CNNs
 - [Accelerating Convolutional Neural Networks for Mobile Applications](http://dl.acm.org/citation.cfm?id=2967280)
 - 2016, ACM Multimedia
