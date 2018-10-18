@@ -1,12 +1,59 @@
 # btd_caffe
 Block Term Decomposition for Caffe model
 
-## Setup
+## Setup (caffe)
+```bash
+# https://github.com/BVLC/caffe/tree/master/docker
+$ docker-compose up
+$ wget -c "https://www.dropbox.com/s/3qidow3qr77ruob/vgg16.caffemodel?dl=0" -O vgg16.caffemodel
+```
+
+## Setup (caffe2)
 ```bash
 $ conda create -n caffe2 python=3.6
 $ source activate caffe2
 (caffe2) $ conda install -c caffe2 caffe2
+(caffe2) $ conda install pytorch-nightly-cpu -c pytorch
 (caffe2) $ pip install git+https://github.com/mnick/scikit-tensor.git
+```
+
+```bash
+python approximate_net.py \
+         --netdef vgg16/deploy.prototxt \
+         --save_netdef vgg16/lowrank/deploy.prototxt \
+         --config vgg16/params.csv
+
+python approximate_net.py \
+         --netdef vgg16/train_test.prototxt \
+         --save_netdef vgg16/lowrank/train_test.prototxt \
+         --config config.csv \
+         --params vgg16/vgg16.caffemodel \
+         --save_params vgg16/lowrank/vgg16_lowrank.caffemodel \
+         --max_iter 1000 \
+         --min_decrease 1e-5
+```
+
+## Issues
+```
+Referenced from: ~/anaconda/envs/caffe2/lib/libavcodec.57.dylib
+Reason: image not found
+https://github.com/flatironinstitute/CaImAn/issues/317
+
+$ conda install -c conda-forge x264=20131218
+```
+
+Just install these
+```bash
+$ conda install protobuf
+$ pip install future
+$ conda install nb_conda
+$ conda install -c conda-forge python-lmdb
+$ conda install lmdb
+```
+
+## Tricks from VS Code
+```
+conda install --name caffe2 yapf # to install package to specific conda env
 ```
 
 ## Block Term Decomposition (BTD) for CNNs
