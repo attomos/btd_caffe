@@ -58,7 +58,7 @@ python approximate_net.py \
 python approximate_net.py \
          --netdef vgg16/train_test.prototxt \
          --save_netdef vgg16/lowrank/train_test.prototxt \
-         --config config.csv \
+         --config vgg16/params.csv \
          --params vgg16/vgg16.caffemodel \
          --save_params vgg16/lowrank/vgg16_lowrank.caffemodel \
          --max_iter 1000 \
