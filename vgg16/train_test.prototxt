@@ -8,11 +8,7 @@ layer {
     phase: TRAIN
   }
   transform_param {
-    mirror: true
-    crop_size: 28
-    mean_value: 104
-    mean_value: 117
-    mean_value: 123
+    mean_file: "/opt/caffe/examples/cifar10/mean.binaryproto"
   }
   data_param {
     source: "/opt/caffe/examples/mnist/mnist_train_lmdb"
@@ -29,11 +25,7 @@ layer {
     phase: TEST
   }
   transform_param {
-    mirror: false
-    crop_size: 28
-    mean_value: 104
-    mean_value: 117
-    mean_value: 123
+    mean_file: "/opt/caffe/examples/cifar10/mean.binaryproto"
   }
   data_param {
     source: "/opt/caffe/examples/mnist/mnist_test_lmdb"
