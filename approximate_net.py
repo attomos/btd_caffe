@@ -1,13 +1,15 @@
-#!/usr/bin/python
-
 import numpy as np
 import csv
-import caffe
-from caffe.proto.caffe_pb2 import NetParameter, LayerParameter
+# import caffe
+from caffe2.python import net_builder, model_helper
+# from caffe.proto.caffe_pb2 import NetParameter, LayerParameter
+from caffe2.proto import caffe2_pb2
+from caffe2.python import core, workspace
 import google.protobuf.text_format as txtf
 from pci import pci
 from sktensor import dtensor
 from argparse import ArgumentParser
+import argparse
 
 
 # load parameters for btd
@@ -91,7 +93,13 @@ def decompose2abc(conv, s, t, r):
 
 def approximate_params(netdef, params, approx_netdef, approx_params,
                        btd_config, max_iter, min_decrease):
+    arg_scope = {'order': 'NCHW'}
     net = caffe.Net(netdef, params, caffe.TEST)
+    train_model = model_helper.ModelHelper(
+        name='approx_train_net',
+        arg_scope=arg_scope
+    )
+
     net_approx = caffe.Net(approx_netdef, params, caffe.TEST)
     convs = [(k, v[0].data, v[1].data) for k, v in list(
         net.params.items()) if k in list(btd_config.keys())]
@@ -150,6 +158,7 @@ def main(args):
 
 
 if __name__ == '__main__':
+    '''
     parser = ArgumentParser(
         description="Block Term Decomposition on Convolution Kernel")
     parser.add_argument('--netdef', required=True,
@@ -168,3 +177,31 @@ if __name__ == '__main__':
                         help="Minimum error decrease in each iteration for BTD")
     args = parser.parse_args()
     main(args)
+    '''
+    def create_approx():
+        d = {
+            'netdef': 'vgg16/deploy.prototxt',
+            'save_netdef': 'vgg16/lowrank/deploy.prototxt',
+            'config': 'vgg16/params.csv',
+            'params': None
+        }
+        args = argparse.Namespace(**d)
+        main(args)
+
+    def create_approx_and_approximate_params():
+        d = {
+            'netdef': 'vgg16/deploy.prototxt',
+            'save_netdef': 'vgg16/lowrank/deploy.prototxt',
+            'config': 'vgg16/params.csv',
+            'params': 'vgg16/vgg16.caffemodel',
+            'save_params': 'vgg16/lowrank/vgg16_lowrank.caffemodel',
+            'max_iter': 1000,
+            'min_decrease': 1e-5,
+        }
+        args = argparse.Namespace(**d)
+        main(args)
+
+    create_approx_and_approximate_params()
+    x = np.random.randn(2, 3).astype(np.float32)
+    print("Current blobs in the workspace: {}".format(workspace.Blobs()))
+    print("Workspace has blob 'X'? {}".format(workspace.HasBlob("X")))
