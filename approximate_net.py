@@ -1,10 +1,7 @@
 import numpy as np
 import csv
-# import caffe
-from caffe2.python import net_builder, model_helper
-# from caffe.proto.caffe_pb2 import NetParameter, LayerParameter
-from caffe2.proto import caffe2_pb2
-from caffe2.python import core, workspace
+import caffe
+from caffe.proto.caffe_pb2 import NetParameter, LayerParameter
 import google.protobuf.text_format as txtf
 from pci import pci
 from sktensor import dtensor
@@ -93,13 +90,7 @@ def decompose2abc(conv, s, t, r):
 
 def approximate_params(netdef, params, approx_netdef, approx_params,
                        btd_config, max_iter, min_decrease):
-    arg_scope = {'order': 'NCHW'}
     net = caffe.Net(netdef, params, caffe.TEST)
-    train_model = model_helper.ModelHelper(
-        name='approx_train_net',
-        arg_scope=arg_scope
-    )
-
     net_approx = caffe.Net(approx_netdef, params, caffe.TEST)
     convs = [(k, v[0].data, v[1].data) for k, v in list(
         net.params.items()) if k in list(btd_config.keys())]
@@ -198,6 +189,3 @@ if __name__ == '__main__':
         }
         args = argparse.Namespace(**d)
         main(args)
-
-    # create_approx_and_approximate_params()
-
