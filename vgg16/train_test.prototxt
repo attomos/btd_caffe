@@ -9,13 +9,13 @@ layer {
   }
   transform_param {
     mirror: true
-    crop_size: 224
+    crop_size: 28
     mean_value: 104
     mean_value: 117
     mean_value: 123
   }
   data_param {
-    source: "/opt/storage/data/ilsvrc12/ilsvrc12_train_lmdb"
+    source: "/opt/caffe/examples/mnist/mnist_train_lmdb"
     batch_size: 32
     backend: LMDB
   }
@@ -30,13 +30,13 @@ layer {
   }
   transform_param {
     mirror: false
-    crop_size: 224
+    crop_size: 28
     mean_value: 104
     mean_value: 117
     mean_value: 123
   }
   data_param {
-    source: "/opt/storage/data/ilsvrc12/ilsvrc12_val_lmdb"
+    source: "/opt/caffe/examples/mnist/mnist_test_lmdb"
     batch_size: 1
     backend: LMDB
   }
