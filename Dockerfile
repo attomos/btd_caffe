@@ -2,8 +2,6 @@ FROM bvlc/caffe:cpu
 
 RUN useradd -ms /bin/bash attomos
 
-USER attomos
-
 RUN apt-get -y update && \
   apt-get -y install \
   vim \
