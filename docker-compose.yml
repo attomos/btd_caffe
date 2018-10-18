@@ -1,0 +1,9 @@
+version: '3'
+
+services:
+  caffe-cpu:
+    build: .
+    volumes:
+      - .:/workspace
+    ports:
+      - 8888:8888
