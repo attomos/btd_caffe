@@ -1,6 +1,27 @@
 # btd_caffe
 Block Term Decomposition for Caffe model
 
+## Setup (on GCP)
+https://docs.docker.com/install/linux/docker-ce/ubuntu
+https://docs.docker.com/compose/install
+https://github.com/NVIDIA/nvidia-docker
+http://mathalope.co.uk/2017/05/31/nvidia-cuda-toolkit-installation-ubuntu-16-04-lts-notes/
+https://medium.com/@zhanwenchen/install-cuda-and-cudnn-for-tensorflow-gpu-on-ubuntu-79306e4ac04e
+
+Basically I just need a driver in order to run nvidia-docker
+```bash
+$ sudo apt-get install gcc
+$ sudo apt-get install nvidia-384 nvidia-modprobe
+```
+
+### could be useful
+https://github.com/eywalker/nvidia-docker-compose
+
+### but for now
+```bash
+$ nvidia-docker run -v $(pwd):/workspace -p 8888:8888 -it --rm bvlc/caffe:gpu bash
+```
+
 ## Setup (caffe)
 ```bash
 # https://github.com/BVLC/caffe/tree/master/docker
