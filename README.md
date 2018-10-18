@@ -17,6 +17,17 @@ $ source activate caffe2
 (caffe2) $ pip install git+https://github.com/mnick/scikit-tensor.git
 ```
 
+## Setup (caffe2 on docker)
+```bash
+# https://hub.docker.com/r/caffe2/caffe2/
+$ docker run --rm -it -p 8888:8888 caffe2/caffe2:snapshot-py2-gcc5-ubuntu16.04 jupyter notebook --allow-root --no-browser --ip 0.0.0.0
+
+$ pip install lmdb
+$ pip install imageio
+$ pip install pydot
+$ pip install requests
+```
+
 ```bash
 python approximate_net.py \
          --netdef vgg16/deploy.prototxt \
