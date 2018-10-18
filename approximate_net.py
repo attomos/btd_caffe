@@ -158,7 +158,6 @@ def main(args):
 
 
 if __name__ == '__main__':
-    '''
     parser = ArgumentParser(
         description="Block Term Decomposition on Convolution Kernel")
     parser.add_argument('--netdef', required=True,
@@ -177,7 +176,6 @@ if __name__ == '__main__':
                         help="Minimum error decrease in each iteration for BTD")
     args = parser.parse_args()
     main(args)
-    '''
     def create_approx():
         d = {
             'netdef': 'vgg16/deploy.prototxt',
@@ -201,7 +199,5 @@ if __name__ == '__main__':
         args = argparse.Namespace(**d)
         main(args)
 
-    create_approx_and_approximate_params()
-    x = np.random.randn(2, 3).astype(np.float32)
-    print("Current blobs in the workspace: {}".format(workspace.Blobs()))
-    print("Workspace has blob 'X'? {}".format(workspace.HasBlob("X")))
+    # create_approx_and_approximate_params()
+
