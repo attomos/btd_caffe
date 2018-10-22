@@ -63,6 +63,16 @@ python approximate_net.py \
          --save_params vgg16/lowrank/vgg16_lowrank.caffemodel \
          --max_iter 1000 \
          --min_decrease 1e-5
+
+# working netdef
+python approximate_net.py \
+         --netdef vgg16/deploy.prototxt \
+         --save_netdef vgg16/lowrank/train_test.prototxt \
+         --config vgg16/params.csv \
+         --params vgg16/vgg16.caffemodel \
+         --save_params vgg16/lowrank/vgg16_lowrank.caffemodel \
+         --max_iter 1000 \
+         --min_decrease 1e-5
 ```
 
 ## Issues
@@ -73,6 +83,11 @@ https://github.com/flatironinstitute/CaImAn/issues/317
 
 $ conda install -c conda-forge x264=20131218
 ```
+
+https://github.com/BVLC/caffe/issues/2780
+https://medium.com/@mccode/processes-in-containers-should-not-run-as-root-2feae3f0df3b
+https://stackoverflow.com/questions/27701930/add-user-to-docker-container
+https://github.com/yihui-he/resnet-cifar10-caffe/blob/master/vgg16/trainval.prototxt
 
 Just install these
 ```bash
